@@ -74,10 +74,9 @@ commit_sha1s=`git rev-list --reverse $tip_commit_id`
 for commit_sha1 in ${commit_sha1s[*]}
 do
   printf .
-  tree_sha1=`git rev-parse $commit_sha1`
 
   if [[ $case_sensitive -eq 0 ]]; then ignore_case_arg=" --ignore-case"; fi
-  git_grep="git grep$ignore_case_arg --extended-regexp --color $regexp $tree_sha1 $@"
+  git_grep="git grep$ignore_case_arg --extended-regexp --color $regexp $commit_sha1 $@"
   output=`$git_grep`
 
   if [[ $? -eq 0 ]]; then
@@ -91,3 +90,4 @@ do
   fi
 
 done
+echo
